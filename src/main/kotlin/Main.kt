@@ -7,6 +7,7 @@ fun main() {
     list.add("2")
     list.add(2, "1.5")
     list.add("3")
+    list.add(0, "new")
     println("list:")
     for (i in list) {
         println(i)
@@ -94,14 +95,17 @@ class LinkedList<T> : Iterable<T> {
 
     fun add(index: Int, value: T) {
         val newItem = Item(value, null)
-        if (head == null) {
+        if (size == 0) {
             head = newItem
             last = head
-        } else {
+        } else if(index != 0){
             val current = getItem(index)
             val prev = getItem(index - 1)
             newItem.next = current
             prev?.next = newItem
+        } else {
+            newItem.next = head
+            head = newItem
         }
         size++
     }
